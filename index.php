@@ -1,4 +1,8 @@
 <?php
+session_start();
+
+$_SESSION["name"] = "ゲスト";
+$_SESSION["id"] = "20";
 
 ?>
 

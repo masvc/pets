@@ -34,13 +34,13 @@ function redirect($file_name)
     exit();
 }
 
-//SessionCheck(スケルトン)
+//SessionCheck
 function sschk()
 {
-    if (!isset($_SESSION["chk_ssid"]) || $_SESSION["chk_ssid"] != session_id()) { //セッションIDを持っていない場合やセッションIDが違う場合はエラー表示
+    if (!isset($_SESSION["chk_ssid"]) || $_SESSION["chk_ssid"] != session_id()) {
         exit("Login Error");
     } else {
-        session_regenerate_id(true); //セッションハイジャック対策でページのIDを変えていく仕組み。trueが入っていれば上書きできるが、ないと過去は残りつつ新規ができていくので危険。
-        $_SESSION["chk_ssid"] = session_id(); //新しいものに上書きするよ
+        session_regenerate_id(true);
+        $_SESSION["chk_ssid"] = session_id();
     }
-}; //スーパーグローバル変数
+}

@@ -7,24 +7,37 @@ $lpw = $_POST["lpw"];
 include "funcs.php";
 $pdo = db_conn();
 
-$stmt = $pdo->prepare("SELECT * FROM users WHERE lid = :lid AND life_flg=0");
-$stmt->bindValue(":lid", $lid, PDO::PARAM_STR);
+//SQLを作成
+$stmt = $pdo->prepare("SELECT * FROM users WHERE lid = :lid");
+$stmt->bindValue(':lid', $lid, PDO::PARAM_STR);
 $status = $stmt->execute();
 
+//デバッグ用
+//var_dump($status);
+
+//SQLエラー
 if ($status == false) {
     sql_error($stmt);
 }
 
+//抽出データ数を取得
 $val = $stmt->fetch();
-$count = $stmt->fetchColumn();
 
-$pw = password_verify($lpw, $val["lpw"]);
-if ($pw) {
+//該当レコードがあればSESSIONに値を代入
+if ($val["id"] != "") {
+    //Login成功時
     $_SESSION["chk_ssid"] = session_id();
-    $_SESSION["kanrisya_flg"] = $val["kanrisya_flg"];
-    $_SESSION["name"] = $val["name"];
+    $_SESSION["kanrisya_flg"] = $val['kanrisya_flg'];
+    $_SESSION["name"] = $val['name'];
+    $_SESSION["id"] = $val['id'];
+
+    //デバッグ用
+    //var_dump($_SESSION);
 
     redirect("main.php");
 } else {
+    //Login失敗時
     redirect("index.php");
 }
+
+exit();

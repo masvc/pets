@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <form action="login.php" method="post" action="index_act.php">
+  <form method="post" action="index_act.php">
     <div>
       <label for="lid">ログインID</label>
       <input type="text" name="lid" id="lid">

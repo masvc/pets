@@ -37,6 +37,7 @@ if ($status == false) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>お気に入り一覧</title>
+    <?= get_common_style() ?>
     <style>
         .board {
             display: grid;
@@ -75,15 +76,6 @@ if ($status == false) {
             background-color: #c82333;
         }
 
-        .header {
-            background: #333;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
         .back-btn {
             background-color: #6c757d;
             color: white;
@@ -97,16 +89,7 @@ if ($status == false) {
 </head>
 
 <body>
-    <header class="header">
-        <div>
-            <h1>お気に入り一覧</h1>
-        </div>
-        <nav>
-            <a href="main.php" class="back-btn">戻る</a>
-            <a href="logout.php" style="color: white; text-decoration: none; margin-left: 10px;">ログアウト</a>
-        </nav>
-    </header>
-
+    <?php include("includes/header.php"); ?>
     <main>
         <section class="board">
             <?= $view ?>

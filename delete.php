@@ -2,11 +2,7 @@
 session_start();
 include("funcs.php");
 sschk();
-
-// 管理者チェック
-if ($_SESSION["kanrisya_flg"] != 1) {
-    exit("権限がありません");
-}
+admin_chk();
 
 // POSTデータ取得
 $id = $_POST["id"];

@@ -2,6 +2,7 @@
 session_start();
 include("funcs.php");
 sschk();
+admin_chk();
 
 // 管理者チェック
 if ($_SESSION["kanrisya_flg"] != 1) {
@@ -63,6 +64,7 @@ if ($_SESSION["kanrisya_flg"] != 1) {
 </head>
 
 <body>
+    <?php include("includes/header.php"); ?>
     <form method="POST" action="animal_insert.php" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">動物の名前：</label>

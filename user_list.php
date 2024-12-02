@@ -2,6 +2,7 @@
 session_start();
 include("funcs.php");
 sschk();
+admin_chk();
 
 //DB接続
 $pdo = db_conn();
@@ -17,16 +18,7 @@ if ($status == false) {
     sql_error($stmt);
 } else {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $view .= '<tr>';
-        $view .= '<td>' . h($row["name"]) . '</td>';
-        $view .= '<td>' . h($row["lid"]) . '</td>';
-        $view .= '<td>' . ($row["kanrisya_flg"] ? "管理者" : "一般") . '</td>';
-        $view .= '<td>';
-        $view .= '<a href="user_edit.php?id=' . h($row["id"]) . '">編集</a>';
-        $view .= ' | ';
-        $view .= '<a href="user_delete.php?id=' . h($row["id"]) . '">削除</a>';
-        $view .= '</td>';
-        $view .= '</tr>';
+        $view .= generate_user_row($row);
     }
 }
 ?>
@@ -38,6 +30,7 @@ if ($status == false) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ユーザー一覧</title>
+    <?= get_common_style() ?>
     <style>
         table {
             border-collapse: collapse;
@@ -54,21 +47,40 @@ if ($status == false) {
         th {
             background-color: #f4f4f4;
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <h1>ユーザー一覧</h1>
-    <a href="user_add.php">新規ユーザー登録</a>
-    <table>
-        <tr>
-            <th>名前</th>
-            <th>ログインID</th>
-            <th>権限</th>
-            <th>操作</th>
-        </tr>
-        <?= $view ?>
-    </table>
+    <?php include("includes/header.php"); ?>
+    <div class="container">
+        <div class="header-section">
+            <h1>ユーザー一覧</h1>
+            <a href="user_add.php" class="btn">新規ユーザー登録</a>
+        </div>
+        <table>
+            <tr>
+                <th>名前</th>
+                <th>ログインID</th>
+                <th>権限</th>
+                <th>操作</th>
+            </tr>
+            <?= $view ?>
+        </table>
+        <a href="main.php" class="back-link">戻る</a>
+    </div>
 </body>
 
 </html>

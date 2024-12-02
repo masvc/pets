@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-$_SESSION["name"] = "ゲスト";
-$_SESSION["id"] = "20";
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +8,7 @@ $_SESSION["id"] = "20";
 </head>
 
 <body>
-  <form action="login.php" method="post">
+  <form action="login.php" method="post" action="index_act.php">
     <div>
       <label for="lid">ログインID</label>
       <input type="text" name="lid" id="lid">
